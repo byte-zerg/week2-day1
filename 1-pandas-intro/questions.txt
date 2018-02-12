@@ -23,11 +23,11 @@ array(['Year', 'Ranking', 'Precinct / Command', 'Complaints Count',
 
 ### Which NYC police precint received the most complaints in a single year?
 
-file1[complaints count].idxmax()
+file1['Complaints Count'].idxmax()
 ==row 17
 
 file1.iloc[17]
-== patrol borough bronx w/ 887 complaints
+== patrol borough bronx w/ 887 complaints in year 2010
 
 
 ### What is the average number of complaints against a police precint in a year?
@@ -35,12 +35,26 @@ file1['Complaints Count'].mean()
 --253.3333
 --btw, .mean(0) goes over rows 
 
+print (file1.groupby(['Year'])['Complaints Count'].mean())
+Year
+2009    250.176471
+2010    259.823529
+2011    250.000000
+Name: Complaints Count, dtype: float64
 
 
 ### What is the standard deviation from that average?
 file1['Complaints Count'].std()
 218.5405835689716
 
+
+print (file1.groupby(['Year'])['Complaints Count'].std())
+Year
+2009    213.348962
+2010    237.343695
+2011    217.561486
+Name: Complaints Count, dtype: float64
+*************
 
 ### What is the total complaints count, and the total number of officers subject to complaint?
 file1['Complaints Count'].sum()
@@ -73,6 +87,6 @@ table2=pd.concat(frames)
 ##add dataframes pd.concat([frames], axis=1) for horizontal i.e. more columns
 
 
-dataframe1.to_sql('table', engine, if_exists='replace')   ##or 'append'
+dataframe1.to_sql('table2', engine, if_exists='replace')   ##or 'append'
 ####table should be new sql
 
