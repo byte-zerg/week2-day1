@@ -5,24 +5,74 @@ ANSWER THESE QUESTIONS USING A PANDAS DATAFRAME
 ----
 
 ### How many rows are in the DataFrame?
+opened the file 
+52 including header row, 51 without header row
 
+file1.shape
+51,5 
+number of rows, columns
 
 ### What columns are included in the DataFrame?
+
+file1.columns.values
+array(['Year', 'Ranking', 'Precinct / Command', 'Complaints Count',
+       'Number Of Subject Officers'], dtype=object)
+
+==[year, ranking, precinct/command, complaints count, number of subject officers]
 
 
 ### Which NYC police precint received the most complaints in a single year?
 
+file1[complaints count].idxmax()
+==row 17
+
+file1.iloc[17]
+== patrol borough bronx w/ 887 complaints
+
 
 ### What is the average number of complaints against a police precint in a year?
+file1['Complaints Count'].mean() 
+--253.3333
+--btw, .mean(0) goes over rows 
+
 
 
 ### What is the standard deviation from that average?
+file1['Complaints Count'].std()
+218.5405835689716
 
 
 ### What is the total complaints count, and the total number of officers subject to complaint?
+file1['Complaints Count'].sum()
+--total complaint count: 12920
+
+file1['Number Of Subject Officers'].sum()
+103433
 
 
 ### What command, in what year, receieved zero complaints?
+file1.loc[file1['Complaints Count'] == 0]
+year: 2011
+command: Deputy Commissioners and Misc. Units	
+
+btw.. file1['Complaints Count'] == 0  returns a BOOLEAN.. so true for where complaints==0
+
+
 
 
 ### What is the command to insert your DataFrame into a SQLite database?
+import sqlite3
+from pandas.io import sql
+
+dataframe1=pd.read_sql_query('SQLdatabase_table', con=engine?)
+###returns a dataframe version of the sql database
+
+frames=[dataframe1 index=[1,2,3], dataframeADD index=[4,5,6]]
+table2=pd.concat(frames)
+##add dataframes together one on top of the other vertically i.e. more rows
+##add dataframes pd.concat([frames], axis=1) for horizontal i.e. more columns
+
+
+dataframe1.to_sql('table', engine, if_exists='replace')   ##or 'append'
+####table should be new sql
+
