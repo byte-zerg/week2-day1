@@ -5,24 +5,49 @@ ANSWER THESE QUESTIONS USING A PANDAS DATAFRAME
 ----
 
 ### How many rows are in the DataFrame?
-
+There are 51 rows
+   len(csv_filename) to get number of rows
 
 ### What columns are included in the DataFrame?
+obtained using "csv.columns"
 
+Includes an unmarked column numbering(indexing?) all the rows, and others named:
+    "Year", "Ranking", "Precinct/Command", "Complaints Count", "Number of Subject 
+Officers"
 
 ### Which NYC police precint received the most complaints in a single year?
+Using "csv.sort_values(by="Complaints Count")
+
+    Patrol Borough Bronx    
 
 
 ### What is the average number of complaints against a police precint in a year?
+Using "csv.describe()"
 
+253.333333
 
 ### What is the standard deviation from that average?
+Using "csv.describe()"
 
+218.540584
 
 ### What is the total complaints count, and the total number of officers subject to complaint?
 
+Using "c = csv_table["Number Of Subject Officers"].sum()":
+    103433
+
+Using "c = csv_table["Complaints Count"].sum()":
+    12920
 
 ### What command, in what year, receieved zero complaints?
 
+Using 
+"b = csv_table.sort_values(by="Complaints Count")
+b = b.head()
+b"
+
+Deputy Commissioners and Misc. Units, in 2010
 
 ### What is the command to insert your DataFrame into a SQLite database?
+
+pandas.DataFrame.to_sql()
